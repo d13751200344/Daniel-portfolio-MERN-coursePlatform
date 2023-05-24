@@ -40,7 +40,8 @@ userSchema.methods.isInstructor = function () {
   return this.role == "instructor";
 };
 userSchema.methods.comparePassword = async function (password, cb) {
-  //cb = callback, defined in auth.js
+  // define a function which contains two parameters
+  // cb = callback, which is defined in auth.js
   let result;
   try {
     // first argument is user input, second one is the one stored in DB

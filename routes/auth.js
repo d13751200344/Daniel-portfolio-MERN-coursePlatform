@@ -5,7 +5,6 @@ const registerValidation = require("../validation").registerValidation;
 const loginValidation = require("../validation").loginValidation;
 const User = require("../models").user;
 const jwt = require("jsonwebtoken");
-const courseValidation = require("../validation").courseValidation;
 
 // middleware to check
 router.use((req, res, next) => {
@@ -55,9 +54,24 @@ router.post("/login", async (req, res) => {
   if (!foundUser) {
     return res.status(401).send("The specified user does'n exist.");
   }
+  // define cb for userSchema.methods.comparePassword in user-model.js
+  foundUser.comparePassword(req.body.password, (err, isMatch) => {
+    if (err) return res.status(500).send(err);
 
-  foundUser.comparePassword
-
+    if (isMatch) {
+      // create json web token
+      const tokenObject = { _id: foundUser._id, email: foundUser.email };
+      const token = jwt.sign(tokenObject, process.env.PASSPORT_SECRET);
+      return res.send({
+        message: "Login successful!",
+        token: "JWT ",
+        token, // must have a blank after string "JWT"
+        user: foundUser,
+      });
+    } else {
+      return res.status(401).send("Invalid password.");
+    }
+  });
 });
 
 module.exports = router;

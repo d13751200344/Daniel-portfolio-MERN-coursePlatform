@@ -40,11 +40,15 @@ userSchema.methods.isInstructor = function () {
   return this.role == "instructor";
 };
 userSchema.methods.comparePassword = async function (password, cb) {
-  //cb = callback
-  let result = await bcrypt.compare(password, this.password);
-  // first argument is user input, second one is the one stored in DB
-
-  return cb(null, result);
+  //cb = callback, defined in auth.js
+  let result;
+  try {
+    // first argument is user input, second one is the one stored in DB
+    result = await bcrypt.compare(password, this.password);
+    return cb(null, result);
+  } catch (e) {
+    return cb(e, result);
+  }
 };
 
 // mongoose middlewares

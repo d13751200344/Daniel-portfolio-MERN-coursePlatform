@@ -11,7 +11,8 @@ const registerValidation = (data) => {
     role: Joi.string().required().valid("student", "instructor"), //.valid() means the user input can only be either of them
   });
 
-  return schema.validate(data);
+  return schema.validate(data); //returns an object that contains the validation result
+  /* The returned validation result object typically has two properties: error and value. If there are validation errors, the error property will contain an object with details about the validation failures. If the validation succeeds without errors, the error property will be null, and the value property will contain the validated data. */
 };
 
 const loginValidation = (data) => {

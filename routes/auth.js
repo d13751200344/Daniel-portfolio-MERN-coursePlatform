@@ -52,7 +52,7 @@ router.post("/login", async (req, res) => {
   // Second: find if the email has registered before
   const foundUser = await User.findOne({ email: req.body.email });
   if (!foundUser) {
-    return res.status(401).send("The specified user does'n exist.");
+    return res.status(401).send("User doesn't exist.");
   }
   // define cb for userSchema.methods.comparePassword in user-model.js
   foundUser.comparePassword(req.body.password, (err, isMatch) => {

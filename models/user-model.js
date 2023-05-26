@@ -33,6 +33,7 @@ const userSchema = new Schema({
 });
 
 // instance methods
+// if this.role == "student", return true
 userSchema.methods.isStudent = function () {
   return this.role == "student";
 };

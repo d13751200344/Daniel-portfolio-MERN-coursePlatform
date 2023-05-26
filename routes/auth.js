@@ -6,7 +6,7 @@ const loginValidation = require("../validation").loginValidation;
 const User = require("../models").user;
 const jwt = require("jsonwebtoken");
 
-// middleware to check
+// middleware to check if this route working or not
 router.use((req, res, next) => {
   console.log("Receiving a request about auth...");
   next();
@@ -19,7 +19,7 @@ router.get("/testAPI", (req, res) => {
 router.post("/register", async (req, res) => {
   // First: validate input data
   //console.log(registerValidation(req.body));  check how the data looks like
-  let { error } = registerValidation(req.body); //error will be null or error details
+  let { error } = registerValidation(req.body); //{error} will be null or error details
   //console.log(error);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -64,8 +64,7 @@ router.post("/login", async (req, res) => {
       const token = jwt.sign(tokenObject, process.env.PASSPORT_SECRET);
       return res.send({
         message: "Login successful!",
-        token: "JWT ",
-        token, // must have a blank after string "JWT"
+        token: "JWT " + token, // must have a blank after string "JWT"
         user: foundUser,
       });
     } else {

@@ -1,33 +1,28 @@
 import React, { useState } from "react";
+import AuthService from "../services/auth.service";
 
 const RegisterComponent = () => {
+  let [username, setUsername] = useState("");
+  let [email, setEmail] = useState("");
+  let [password, setPassword] = useState("");
+  let [role, setRole] = useState("");
+
   return (
     <div style={{ padding: "3rem" }} className="col-md-12">
       <div>
         <div>
           <label htmlFor="username">Username: </label>
-          <input
-            onChange={handleChangeUsername}
-            type="text"
-            className="form-control"
-            name="username"
-          />
+          <input type="text" className="form-control" name="username" />
         </div>
         <br />
         <div className="form-group">
           <label htmlFor="email">Email: </label>
-          <input
-            onChange={handleChangeEmail}
-            type="text"
-            className="form-control"
-            name="email"
-          />
+          <input type="text" className="form-control" name="email" />
         </div>
         <br />
         <div className="form-group">
           <label htmlFor="password">Password: </label>
           <input
-            onChange={handleChangePassword}
             type="password"
             className="form-control"
             name="password"
@@ -38,7 +33,6 @@ const RegisterComponent = () => {
         <div className="form-group">
           <label htmlFor="password">Role: </label>
           <input
-            onChange={handleChnageRole}
             type="text"
             className="form-control"
             placeholder="Either student or instructor"
@@ -46,7 +40,7 @@ const RegisterComponent = () => {
           />
         </div>
         <br />
-        <button onClick={handleRegister} className="btn btn-primary">
+        <button className="btn btn-primary">
           <span>Register</span>
         </button>
       </div>
